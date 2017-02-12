@@ -28,6 +28,9 @@
     <Filter Include="src\游戏场景\游戏层">
       <UniqueIdentifier>{cd1f8bcd-7f08-477c-b388-17f1804fc9a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\游戏场景\游戏管理">
+      <UniqueIdentifier>{bf0284d7-d0cf-4c19-bcdd-b11e252e262e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +60,9 @@
     <ClCompile Include="..\Classes\GameReadyLayer.cpp">
       <Filter>src\游戏场景\准备层</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameMaster.cpp">
+      <Filter>src\游戏场景\游戏管理</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -85,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameLayer.h">
       <Filter>src\游戏场景\游戏层</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameMaster.h">
+      <Filter>src\游戏场景\游戏管理</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\utils.h">
+      <Filter>src\通用</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #pragma once
 #include "cocos2d.h"
-#include "csb_config.h"
+#include "utils.h"
 
 class GameReadyLayer : public cocos2d::Layer
 {
@@ -8,6 +8,8 @@ public:
 	CREATE_FUNC(GameReadyLayer);
 	virtual bool init() override;
 
+	void setReady();			// ÉèÖÃµÈ´ýÍæ¼Ò×´Ì¬
+
 protected:
-	cocos2d::Node * root;
+	cocos2d::Node * m_root;
 };

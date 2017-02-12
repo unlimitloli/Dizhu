@@ -147,6 +147,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\csb_config.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
+    <ClCompile Include="..\Classes\GameMaster.cpp" />
     <ClCompile Include="..\Classes\GameReadyLayer.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
@@ -158,11 +159,13 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\csb_config.h" />
     <ClInclude Include="..\Classes\GameLayer.h" />
+    <ClInclude Include="..\Classes\GameMaster.h" />
     <ClInclude Include="..\Classes\GameReadyLayer.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\SceneManager.h" />
     <ClInclude Include="..\Classes\StartLayer.h" />
+    <ClInclude Include="..\Classes\utils.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #pragma once
 #include "cocos2d.h"
-#include "csb_config.h"
+#include "utils.h"
 
 class StartLayer : cocos2d::Layer
 {
@@ -11,5 +11,5 @@ public:
 	virtual bool init() override;
 
 protected:
-	cocos2d::Node * root;
+	cocos2d::Node * m_root;
 };

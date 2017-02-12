@@ -22,9 +22,9 @@ bool StartLayer::init()
 
 	auto csbItem = CSLoader::createNode(csb.start_layer);
 	addChild(csbItem);
-	root = csbItem->getChildByName("root");
+	m_root = csbItem->getChildByName("root");
 
-	auto btnStart = dynamic_cast<Button *>(root->getChildByName("Button_Start"));
+	auto btnStart = dynamic_cast<Button *>(m_root->getChildByName("Button_Start"));
 	btnStart->addTouchEventListener([](cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType type) {
 		if (Widget::TouchEventType::ENDED == type)
 			_sceneManager->replaceScene(EnumScene::GameScene);
