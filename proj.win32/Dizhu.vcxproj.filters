@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\场景管理">
+      <UniqueIdentifier>{76da86c5-ee2b-43a2-85a9-b44e10b68c00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\开始场景">
+      <UniqueIdentifier>{76ee75e8-ecf2-4e33-ba82-05fb5aecc345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\通用">
+      <UniqueIdentifier>{a5660f36-ab09-41ba-af3e-098a252f3a58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\游戏场景">
+      <UniqueIdentifier>{e4d66a43-6753-479f-9149-07898412d730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\游戏场景\准备层">
+      <UniqueIdentifier>{39d3b0fa-5e04-4ac7-9d8c-8803fcac1606}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\游戏场景\游戏层">
+      <UniqueIdentifier>{cd1f8bcd-7f08-477c-b388-17f1804fc9a3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SceneManager.cpp">
+      <Filter>src\场景管理</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StartLayer.cpp">
+      <Filter>src\开始场景</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\csb_config.cpp">
+      <Filter>src\通用</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>src\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLayer.cpp">
+      <Filter>src\游戏场景\游戏层</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameReadyLayer.cpp">
+      <Filter>src\游戏场景\准备层</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SceneManager.h">
+      <Filter>src\场景管理</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StartLayer.h">
+      <Filter>src\开始场景</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\csb_config.h">
+      <Filter>src\通用</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>src\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameReadyLayer.h">
+      <Filter>src\游戏场景\准备层</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLayer.h">
+      <Filter>src\游戏场景\游戏层</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
