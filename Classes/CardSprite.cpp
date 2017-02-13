@@ -27,5 +27,7 @@ bool CardSprite::initWithData(const CardData &data)
 	if (!Sprite::initWithSpriteFrameName(filename))
 		return false;
 
+	setAnchorPoint(Vec2::ZERO);
+
 	return true;
 }

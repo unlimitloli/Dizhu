@@ -18,6 +18,12 @@ bool GameReadyLayer::init()
 	addChild(csbItem);
 	m_root = csbItem->getChildByName("root");
 
+	auto Button_Ready = dynamic_cast<Button *>(getWidgetByName(m_root, "Button_Ready"));
+	Button_Ready->addTouchEventListener([](cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType type) {
+		if (cocos2d::ui::Widget::TouchEventType::ENDED == type)
+			_game->startGame();
+	});
+
 	return true;
 }
 

@@ -2,6 +2,7 @@
 #include "GameMaster.h"
 #include "ui\CocosGUI.h"
 #include "cocostudio\CocoStudio.h"
+#include "CardManager.h"
 #include "CardSprite.h"
 
 USING_NS_CC;
@@ -26,9 +27,16 @@ void GameLayer::setReady()
 {
 	auto Panel_Game = getWidgetByName(m_root, "Panel_Game");
 	//Panel_Game->setVisible(false);
-	auto Panel_Self = getWidgetByName(m_root, "Panel_Self");
-	auto sprite = CardSprite::create(16, 1);
-	sprite->setPosition(100, 100);
-	Panel_Self->removeAllChildrenWithCleanup(true);
-	Panel_Self->addChild(sprite);
+}
+
+void GameLayer::showDizhuCards()
+{
+	auto dizhuCards = _game->getDizhuCards();
+	for (int i = 0; i < 3; ++i)
+	{
+		auto name = StringUtils::format("Panel_Dizhu_%d", i);
+		auto Panel_Dizhu = getWidgetByName(m_root, name);
+		auto card = CardSprite::create(dizhuCards[i]);
+		Panel_Dizhu->addChild(card);
+	}
 }

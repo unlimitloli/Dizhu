@@ -43,6 +43,12 @@
     <Filter Include="src\游戏场景\卡牌\牌型">
       <UniqueIdentifier>{e88c9781-4712-422e-aa7f-20adadd5aa70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\游戏场景\玩家">
+      <UniqueIdentifier>{fd5bda99-2eaf-4903-a95f-d47b3c83f5fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\游戏场景\卡牌\牌组">
+      <UniqueIdentifier>{9e286a5d-a8db-4c73-94d1-86abdf355095}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +86,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\CardSprite.cpp">
       <Filter>src\游戏场景\卡牌\卡牌精灵</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>src\游戏场景\玩家</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CardManager.cpp">
+      <Filter>src\游戏场景\卡牌\牌组</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\CardSprite.h">
       <Filter>src\游戏场景\卡牌\卡牌精灵</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>src\游戏场景\玩家</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CardManager.h">
+      <Filter>src\游戏场景\卡牌\牌组</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -146,6 +146,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\CardData.cpp" />
+    <ClCompile Include="..\Classes\CardManager.cpp" />
     <ClCompile Include="..\Classes\CardSprite.cpp" />
     <ClCompile Include="..\Classes\csb_config.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
@@ -153,6 +154,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\GameReadyLayer.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\SceneManager.cpp" />
     <ClCompile Include="..\Classes\StartLayer.cpp" />
     <ClCompile Include="main.cpp" />
@@ -160,6 +162,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\CardData.h" />
+    <ClInclude Include="..\Classes\CardManager.h" />
     <ClInclude Include="..\Classes\CardSprite.h" />
     <ClInclude Include="..\Classes\csb_config.h" />
     <ClInclude Include="..\Classes\GameLayer.h" />
@@ -167,6 +170,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\GameReadyLayer.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\SceneManager.h" />
     <ClInclude Include="..\Classes\StartLayer.h" />
     <ClInclude Include="..\Classes\utils.h" />

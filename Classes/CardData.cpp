@@ -5,6 +5,11 @@ CardData::CardData() :
 {
 }
 
+CardData::CardData(int num, int type) :
+	CardData(EnumCardNum(num), EnumCardType(type))
+{
+}
+
 CardData::CardData(EnumCardNum num, EnumCardType type) :
 	m_num(num), m_type(type)
 {
@@ -27,7 +32,14 @@ int CardData::getType() const
 
 bool CardData::isVaild() const
 {
-	return (m_num == EnumCardNum::Card0 || m_type == EnumCardType::CardTypeNone);
+	if (m_num < EnumCardNum::Card3 || m_num > EnumCardNum::CardJokerKing)
+		return true;
+	if (m_num == EnumCardNum::CardJoker || m_num == EnumCardNum::CardJokerKing)
+	{
+		if (m_type != EnumCardType::CardTypeSpade)
+			return true;
+	}
+	return false;
 }
 
 bool CardData::operator== (const CardData &data) const

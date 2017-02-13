@@ -35,9 +35,10 @@ class CardData
 {
 public:
 	CardData();
+	CardData(int num, int type);
 	CardData(EnumCardNum num, EnumCardType type);
 	CardData(const CardData &data);
-	int getNum() const;
+	int getNum() const;  
 	int getType() const;
 
 	bool isVaild() const;
