@@ -6,4 +6,6 @@ class GameScene : public cocos2d::Scene
 public:
 	CREATE_FUNC(GameScene);
 	virtual bool init();
+
+	void loadTexture();
 };

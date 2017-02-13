@@ -19,7 +19,15 @@ bool GameScene::init()
 	auto game_ready_layer = GameReadyLayer::create();
 	addChild(game_ready_layer);
 
+	loadTexture();
+
 	_game->start();
 
 	return true;
 }
+
+void GameScene::loadTexture()
+{
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("cards.plist", "cards.png");
+}
+

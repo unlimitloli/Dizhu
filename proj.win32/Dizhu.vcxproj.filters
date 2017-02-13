@@ -31,6 +31,18 @@
     <Filter Include="src\游戏场景\游戏管理">
       <UniqueIdentifier>{bf0284d7-d0cf-4c19-bcdd-b11e252e262e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\游戏场景\卡牌">
+      <UniqueIdentifier>{0596e654-dd0c-40f9-88ae-0298a3849de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\游戏场景\卡牌\基础数据">
+      <UniqueIdentifier>{e56441ac-2476-49ce-ba11-c615f9b55359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\游戏场景\卡牌\卡牌精灵">
+      <UniqueIdentifier>{54f43399-105d-4841-9869-e00677930695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\游戏场景\卡牌\牌型">
+      <UniqueIdentifier>{e88c9781-4712-422e-aa7f-20adadd5aa70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -62,6 +74,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\GameMaster.cpp">
       <Filter>src\游戏场景\游戏管理</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CardData.cpp">
+      <Filter>src\游戏场景\卡牌\基础数据</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CardSprite.cpp">
+      <Filter>src\游戏场景\卡牌\卡牌精灵</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +115,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\utils.h">
       <Filter>src\通用</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CardData.h">
+      <Filter>src\游戏场景\卡牌\基础数据</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CardSprite.h">
+      <Filter>src\游戏场景\卡牌\卡牌精灵</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

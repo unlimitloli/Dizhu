@@ -75,6 +75,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
 	FileUtils::getInstance()->addSearchPath("cocostudio");
+	FileUtils::getInstance()->addSearchPath("cards");
 
 	_sceneManager->runScene();
 
