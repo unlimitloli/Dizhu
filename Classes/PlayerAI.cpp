@@ -26,5 +26,8 @@ bool PlayerAI::initPlayer(int index)
 
 void PlayerAI::startQiangdizhu()
 {
-	sureQiangdizhu(true);
+	if (m_is_qiangdizhu == true)
+		sureQiangdizhu(true);
+	else
+		sureQiangdizhu(false);
 }
