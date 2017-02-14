@@ -19,9 +19,9 @@ bool GameReadyLayer::init()
 	m_root = csbItem->getChildByName("root");
 
 	auto Button_Ready = dynamic_cast<Button *>(getWidgetByName(m_root, "Button_Ready"));
-	Button_Ready->addTouchEventListener([](cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType type) {
+	Button_Ready->addTouchEventListener([&](cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType type) {
 		if (cocos2d::ui::Widget::TouchEventType::ENDED == type)
-			_game->startGame();
+			playerReady();
 	});
 
 	return true;
@@ -29,9 +29,22 @@ bool GameReadyLayer::init()
 
 void GameReadyLayer::setReady()
 {
-	auto Panel_JiaoDizhu = getWidgetByName(m_root, "Panel_JiaoDizhu");
-	auto Panel_QiangDizhu = getWidgetByName(m_root, "Panel_QiangDizhu");
+	auto root = this->m_root;
+	for (int i = 0; i < 3; ++i)
+	{
+		auto Image_Ready = getWidgetByName(root, getNameWithIndex("Image_Ready_%d", i));
+		Image_Ready->setVisible(false);
+	}
+}
 
-	Panel_JiaoDizhu->setVisible(false);
-	Panel_QiangDizhu->setVisible(false);
+void GameReadyLayer::playerReady()
+{
+	auto player = _game->getControlPlayer();
+	player->setReady();
+}
+
+void GameReadyLayer::setPlayerReady(int index)
+{
+	auto Image_Ready = getWidgetByName(this->m_root, getNameWithIndex("Image_Ready_%d", index));
+	Image_Ready->setVisible(true);
 }

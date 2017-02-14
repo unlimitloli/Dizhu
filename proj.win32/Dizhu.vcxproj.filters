@@ -49,6 +49,12 @@
     <Filter Include="src\游戏场景\卡牌\牌组">
       <UniqueIdentifier>{9e286a5d-a8db-4c73-94d1-86abdf355095}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\游戏场景\操作玩家">
+      <UniqueIdentifier>{2708b799-4f13-459a-9532-22bff9287556}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\游戏场景\AI">
+      <UniqueIdentifier>{a52e8f10-68e1-44bc-b8b5-083d9b9f97dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -92,6 +98,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\CardManager.cpp">
       <Filter>src\游戏场景\卡牌\牌组</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerAI.cpp">
+      <Filter>src\游戏场景\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PlayerControl.cpp">
+      <Filter>src\游戏场景\操作玩家</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +151,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\CardManager.h">
       <Filter>src\游戏场景\卡牌\牌组</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerControl.h">
+      <Filter>src\游戏场景\操作玩家</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PlayerAI.h">
+      <Filter>src\游戏场景\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

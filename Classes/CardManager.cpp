@@ -29,16 +29,21 @@ void CardManager::flushCard()
 	}
 }
 
-std::vector<CardData> CardManager::dealCards(std::vector<Player *> players)
+std::vector<CardData> CardManager::dealCards(cocos2d::Vector<Player *> players)
 {
 	// √ø»À17’≈≈∆
 	for (int i = 0; i < 17; ++i)
 	{
 		for (int j = 0; j < 3; ++j)
 		{
-			players[j]->addCard(m_cards.back());
+			players.at(j)->addCard(m_cards.back());
 			m_cards.pop_back();
 		}
+	}
+
+	for (int i = 0; i < 3; ++i)
+	{
+		players.at(i)->sortCard();
 	}
 	return m_cards;
 }

@@ -9,6 +9,9 @@ public:
 	virtual bool init() override;
 
 	void setReady();			// ÉèÖÃµÈ´ıÍæ¼Ò×´Ì¬
+	void playerReady();
+
+	void setPlayerReady(int index);
 
 protected:
 	cocos2d::Node * m_root;

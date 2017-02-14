@@ -7,3 +7,6 @@
 
 // 查找csb资源控件
 #define getWidgetByName(root, name)			cocos2d::ui::Helper::seekWidgetByName(dynamic_cast<cocos2d::ui::Widget *>(root), name)
+
+// 合成字符串
+#define getNameWithIndex(str, index)		StringUtils::format(str, index)
