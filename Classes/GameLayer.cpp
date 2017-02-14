@@ -4,6 +4,7 @@
 #include "cocostudio\CocoStudio.h"
 #include "CardManager.h"
 #include "CardSprite.h"
+#include "SceneManager.h"
 
 USING_NS_CC;
 using namespace cocos2d::ui;
@@ -24,6 +25,14 @@ bool GameLayer::init()
 	m_root = csbItem->getChildByName("root");
 
 	m_panel_self = dynamic_cast<Layout *>(getWidgetByName(m_root, "Panel_Self"));
+
+	auto btnExit = dynamic_cast<Button *>(getWidgetByName(m_root, "Button_Exit"));
+	btnExit->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type) {
+		if (Widget::TouchEventType::ENDED == type)
+		{
+			_sceneManager->replaceScene(EnumScene::StartScene);
+		}
+	});
 
 	return true;
 }
@@ -153,6 +162,26 @@ void GameLayer::hideQiangdizhu()
 
 	Panel_QiangDizhu->setVisible(false);
 	Panel_JiaoDizhu->setVisible(false);
+}
+
+void GameLayer::startPlayCard()
+{
+	flushHandCard();
+}
+
+void GameLayer::flushHandCard()
+{
+	auto &cards = _game->getControlPlayer()->getHandCard();
+	m_panel_self->removeAllChildrenWithCleanup(true);
+	m_hand_cards.clear();
+	for (size_t i = 0; i < cards.size(); ++i)
+	{
+		auto sprite = CardSprite::create(cards.at(i));
+		sprite->setPosition(i * CARD_WIDTH / 2, 0);
+		m_panel_self->addChild(sprite);
+		m_hand_cards.pushBack(sprite);
+	}
+	m_panel_self->setContentSize(Size(cards.size() * CARD_WIDTH / 2, CARD_HEIGHT));
 }
 
 

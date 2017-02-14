@@ -22,12 +22,12 @@ public:
 	virtual void startQiangdizhu() = 0;			// 开始抢地主
 	virtual void sureQiangdizhu(bool sure);		// 确定是否抢地主
 
-	virtual void sortCard();
-
 protected:
 	std::vector<CardData> m_cards;
 	int m_index = 0;
 	bool m_is_ready = false;
+
+	bool m_is_qiangdizhu = true;
 
 	GameLayer *m_game_layer = nullptr;
 };

@@ -20,6 +20,8 @@ public:
 	void showQiangdizhu(bool isDizhu);	// 
 	void hideQiangdizhu();
 
+	void startPlayCard();
+
 	void addCardToHand(const CardData &data);
 	void flushHandCard();
 

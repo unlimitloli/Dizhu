@@ -48,17 +48,34 @@ void GameMaster::checkState()
 		break;
 	case EnumGameState::GameQiangdizhu:
 		CCLOG("开始抢地主");
-		if (m_is_start_dizhu == false)
+		if (m_is_end_dizhu == true)			// 抢地主结束
+		{
+			m_is_start_dizhu = false;
+			m_is_end_dizhu = false;
+			m_state = EnumGameState::GamePlayCard;
+			checkState();
+		}
+		else if (m_is_start_dizhu == false)  // 开始抢地主
 		{
 			m_is_start_dizhu = true;
+			m_is_end_dizhu = false;
 			m_dizhu_player = m_start_dizhu_player;
 			m_cur_dizhu_player = m_start_dizhu_player;
 			playerStartQiangdizhu();
 		}
 		else if (m_cur_dizhu_player == m_start_dizhu_player)
 		{
+			// 一轮抢地主完成
+			m_is_end_dizhu = true;
 			m_state = EnumGameState::GamePlayCard;
-			checkState();
+			if (m_dizhu_player != m_start_dizhu_player)
+			{
+				playerStartQiangdizhu();
+			}
+			else
+			{
+				checkState();
+			}
 		}
 		else
 		{
@@ -67,6 +84,7 @@ void GameMaster::checkState()
 		break;
 	case EnumGameState::GamePlayCard:
 		CCLOG("开始出牌，地主为: %d", m_dizhu_player);
+		startPlayCard();
 		break;
 	default:
 		break;
@@ -127,6 +145,16 @@ void GameMaster::startQiangdizhu()
 	checkState();
 }
 
+void GameMaster::startPlayCard()
+{
+	// 将地主牌添加到玩家手牌中
+	for (auto card : m_dizhuCards)
+	{
+		m_players.at(m_dizhu_player)->addCard(card);
+	}
+	m_game_layer->startPlayCard();
+}
+
 void GameMaster::playerSureQiangdizhu(int index, bool sure)
 {
 	if (true == sure)
@@ -142,7 +170,7 @@ void GameMaster::playerStartQiangdizhu()
 
 void GameMaster::controlPlayerQiangdizhu()
 {
-	if (m_cur_dizhu_player == m_control_player)		// 叫地主
+	if (m_dizhu_player == m_control_player)		// 叫地主
 	{
 		m_game_layer->showQiangdizhu(true);
 	}
@@ -178,4 +206,11 @@ Player * GameMaster::getControlPlayer()
 std::vector<CardData> GameMaster::getDizhuCards() const
 {
 	return m_dizhuCards;
+}
+
+void GameMaster::onExit()
+{
+	Node::onExit();
+
+	master = nullptr;
 }

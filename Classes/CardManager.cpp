@@ -41,9 +41,5 @@ std::vector<CardData> CardManager::dealCards(cocos2d::Vector<Player *> players)
 		}
 	}
 
-	for (int i = 0; i < 3; ++i)
-	{
-		players.at(i)->sortCard();
-	}
 	return m_cards;
 }

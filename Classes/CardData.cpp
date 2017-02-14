@@ -30,6 +30,16 @@ int CardData::getType() const
 	return (int)m_type;
 }
 
+bool CardData::orderGreater(const CardData & data) const
+{
+	if (getNum() > data.getNum())
+		return true;
+	else if ((getNum() == data.getNum()) && (getType() < data.getType()))
+		return true;
+	else
+		return false;
+}
+
 bool CardData::isVaild() const
 {
 	if (m_num < EnumCardNum::Card3 || m_num > EnumCardNum::CardJokerKing)

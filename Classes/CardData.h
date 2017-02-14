@@ -41,6 +41,8 @@ public:
 	int getNum() const;  
 	int getType() const;
 
+	bool orderGreater(const CardData &data) const;		//≈≈–Ú¥Û–°
+
 	bool isVaild() const;
 	bool operator == (const CardData &data) const;
 	bool operator < (const CardData &data) const;

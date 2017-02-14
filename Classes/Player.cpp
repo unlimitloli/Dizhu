@@ -12,7 +12,16 @@ bool Player::initPlayer(int index)
 
 void Player::addCard(const CardData &data)
 {
-	m_cards.push_back(data);
+	// 按从大到小的顺序插入
+	size_t index = 0;			// 插入位置
+	for (index = 0; index < m_cards.size(); ++index)
+	{
+		if (data.orderGreater(m_cards.at(index)))
+		{
+			break;
+		}
+	}
+	m_cards.insert(m_cards.begin() + index, data);
 }
 
 std::vector<CardData>& Player::getHandCard()
@@ -36,12 +45,15 @@ bool Player::getReady()
 	return m_is_ready;
 }
 
-void Player::sortCard()
-{
-	std::sort(m_cards.begin(), m_cards.end(), std::greater<CardData>());
-}
-
 void Player::sureQiangdizhu(bool sure)
 {
-	_game->playerSureQiangdizhu(m_index, sure);
+	if (m_is_qiangdizhu == true)
+	{
+		m_is_qiangdizhu = sure;
+		_game->playerSureQiangdizhu(m_index, sure);
+	}
+	else
+	{	
+		_game->playerSureQiangdizhu(m_index, false);
+	}
 }

@@ -18,5 +18,8 @@ PlayerControl * PlayerControl::create(int index)
 
 void PlayerControl::startQiangdizhu()
 {
-	_game->controlPlayerQiangdizhu();
+	if (m_is_qiangdizhu == true)
+		_game->controlPlayerQiangdizhu();
+	else
+		sureQiangdizhu(false);
 }
