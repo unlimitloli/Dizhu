@@ -60,6 +60,7 @@ void GameLayer::showDizhuCards()
 		auto card = CardSprite::create(dizhuCards[i]);
 		Panel_Dizhu->addChild(card);
 	}
+	_game->startQiangdizhu();
 }
 
 void GameLayer::showHandCards()
@@ -108,3 +109,50 @@ void GameLayer::addCardToHand(const CardData &data)
 	m_hand_cards.pushBack(sprite);
 	m_panel_self->setContentSize(Size((count + 1) * CARD_WIDTH / 2, CARD_HEIGHT));
 }
+
+void GameLayer::showQiangdizhu(bool isDizhu)
+{
+	Button *btnSure = nullptr;
+	Button *btnCancel = nullptr;
+	if (true == isDizhu)		// 显示叫地主
+	{
+		auto Panel_JiaoDizhu = getWidgetByName(m_root, "Panel_JiaoDizhu");
+		Panel_JiaoDizhu->setVisible(true);
+		btnSure = dynamic_cast<Button *>(Panel_JiaoDizhu->getChildByName("Button_JiaoDizhu"));
+		btnCancel = dynamic_cast<Button *>(Panel_JiaoDizhu->getChildByName("Button_BujiaoDizhu"));
+	}
+	else						// 显示抢地主
+	{
+		auto Panel_QiangDizhu = getWidgetByName(m_root, "Panel_QiangDizhu");
+		Panel_QiangDizhu->setVisible(true);
+		btnSure = dynamic_cast<Button *>(Panel_QiangDizhu->getChildByName("Button_QiangDizhu"));
+		btnCancel = dynamic_cast<Button *>(Panel_QiangDizhu->getChildByName("Button_BuqiangDizhu"));
+	}
+
+	btnSure->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type) {
+		if (Widget::TouchEventType::ENDED == type)
+		{
+			hideQiangdizhu();
+			_game->getControlPlayer()->sureQiangdizhu(true);
+		}
+	});
+
+	btnCancel->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type) {
+		if (Widget::TouchEventType::ENDED == type)
+		{
+			hideQiangdizhu();
+			_game->getControlPlayer()->sureQiangdizhu(false);
+		}
+	});
+}
+
+void GameLayer::hideQiangdizhu()
+{
+	auto Panel_QiangDizhu = getWidgetByName(m_root, "Panel_QiangDizhu");
+	auto Panel_JiaoDizhu = getWidgetByName(m_root, "Panel_JiaoDizhu");
+
+	Panel_QiangDizhu->setVisible(false);
+	Panel_JiaoDizhu->setVisible(false);
+}
+
+

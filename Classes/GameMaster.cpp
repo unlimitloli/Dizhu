@@ -44,10 +44,29 @@ void GameMaster::checkState()
 		break;
 	case EnumGameState::GameFlushCard:
 		m_game_layer->showHandCards();
+		m_state = EnumGameState::GameQiangdizhu;
 		break;
 	case EnumGameState::GameQiangdizhu:
+		CCLOG("开始抢地主");
+		if (m_is_start_dizhu == false)
+		{
+			m_is_start_dizhu = true;
+			m_dizhu_player = m_start_dizhu_player;
+			m_cur_dizhu_player = m_start_dizhu_player;
+			playerStartQiangdizhu();
+		}
+		else if (m_cur_dizhu_player == m_start_dizhu_player)
+		{
+			m_state = EnumGameState::GamePlayCard;
+			checkState();
+		}
+		else
+		{
+			playerStartQiangdizhu();
+		}  
 		break;
 	case EnumGameState::GamePlayCard:
+		CCLOG("开始出牌，地主为: %d", m_dizhu_player);
 		break;
 	default:
 		break;
@@ -101,11 +120,46 @@ void GameMaster::startGame()
 	m_dizhuCards = manager.dealCards(m_players);
 }
 
+void GameMaster::startQiangdizhu()
+{
+	m_state = EnumGameState::GameQiangdizhu;
+	m_is_start_dizhu = false;
+	checkState();
+}
+
+void GameMaster::playerSureQiangdizhu(int index, bool sure)
+{
+	if (true == sure)
+		m_dizhu_player = index;
+	m_cur_dizhu_player = (m_cur_dizhu_player + 1) % 3;
+	checkState();
+}
+
+void GameMaster::playerStartQiangdizhu()
+{
+	m_players.at(m_cur_dizhu_player)->startQiangdizhu();
+}
+
+void GameMaster::controlPlayerQiangdizhu()
+{
+	if (m_cur_dizhu_player == m_control_player)		// 叫地主
+	{
+		m_game_layer->showQiangdizhu(true);
+	}
+	else											// 抢地主
+	{
+		m_game_layer->showQiangdizhu(false);
+	}
+
+}
+
 void GameMaster::createPlayer()
 {
 	m_players.pushBack(PlayerControl::create(0));
 	m_players.pushBack(PlayerAI::create(1));
 	m_players.pushBack(PlayerAI::create(2));
+
+	m_players.at(0)->setControl(m_game_layer);
 
 	m_control_player = 0;
 }

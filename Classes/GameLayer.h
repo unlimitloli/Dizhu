@@ -17,6 +17,9 @@ public:
 	void showDizhuCards();		// 显示地主的牌
 	void showHandCards();		// 显示手牌
 
+	void showQiangdizhu(bool isDizhu);	// 
+	void hideQiangdizhu();
+
 	void addCardToHand(const CardData &data);
 	void flushHandCard();
 

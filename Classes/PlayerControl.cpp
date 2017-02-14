@@ -1,5 +1,6 @@
 #include "PlayerControl.h"
 #include "cocos2d.h"
+#include "GameMaster.h"
 
 USING_NS_CC;
 
@@ -13,4 +14,9 @@ PlayerControl * PlayerControl::create(int index)
 	}
 	CC_SAFE_DELETE(player);
 	return false;
+}
+
+void PlayerControl::startQiangdizhu()
+{
+	_game->controlPlayerQiangdizhu();
 }

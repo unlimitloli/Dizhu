@@ -23,3 +23,8 @@ bool PlayerAI::initPlayer(int index)
 	setReady();
 	return true;
 }
+
+void PlayerAI::startQiangdizhu()
+{
+	sureQiangdizhu(true);
+}

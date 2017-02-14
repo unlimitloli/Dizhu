@@ -29,6 +29,11 @@ public:
 	void start();					// 开始游戏
 	void startReady();				// 等待玩家准备
 	void startGame();				// 开始游戏，进入发牌阶段
+	void startQiangdizhu();
+
+	void playerSureQiangdizhu(int index, bool sure);
+	void playerStartQiangdizhu();	// 玩家index抢地主
+	void controlPlayerQiangdizhu();	// 控制的玩家抢地主
 
 	void createPlayer();
 	void setPlayerReady(int index);
@@ -49,6 +54,11 @@ protected:
 	//std::vector<Player *> m_players;
 	cocos2d::Vector<Player *> m_players;
 	int m_control_player = 0;
+
+	bool m_is_start_dizhu = false;
+	int m_start_dizhu_player = 0;		// 从此号玩家开始抢地主
+	int m_cur_dizhu_player = 0;
+	int m_dizhu_player = 0;				// 地主
 	std::vector<CardData> m_dizhuCards;
 
 protected:

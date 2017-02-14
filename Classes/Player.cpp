@@ -4,18 +4,6 @@
 
 using namespace std;
 
-Player * Player::create(int index)
-{
-	auto player = new Player();
-	if (player != nullptr && player->initPlayer(index))
-	{
-		player->autorelease();
-		return player;
-	}
-	CC_SAFE_DELETE(player);
-	return nullptr;
-}
-
 bool Player::initPlayer(int index)
 {
 	m_index = index;
@@ -32,6 +20,11 @@ std::vector<CardData>& Player::getHandCard()
 	return m_cards;
 }
 
+void Player::setControl(GameLayer * game_layer)
+{
+	m_game_layer = game_layer;
+}
+
 void Player::setReady()
 {
 	m_is_ready = true;
@@ -46,4 +39,9 @@ bool Player::getReady()
 void Player::sortCard()
 {
 	std::sort(m_cards.begin(), m_cards.end(), std::greater<CardData>());
+}
+
+void Player::sureQiangdizhu(bool sure)
+{
+	_game->playerSureQiangdizhu(m_index, sure);
 }
