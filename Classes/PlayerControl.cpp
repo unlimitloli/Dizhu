@@ -1,6 +1,7 @@
 #include "PlayerControl.h"
 #include "cocos2d.h"
 #include "GameMaster.h"
+#include "GameLayer.h"
 
 USING_NS_CC;
 
@@ -22,4 +23,9 @@ void PlayerControl::startQiangdizhu()
 		_game->controlPlayerQiangdizhu();
 	else
 		sureQiangdizhu(false);
+}
+
+void PlayerControl::onStartPlayCard()
+{
+	m_game_layer->showPlayCardButton(true);
 }

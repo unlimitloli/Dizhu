@@ -57,3 +57,39 @@ void Player::sureQiangdizhu(bool sure)
 		_game->playerSureQiangdizhu(m_index, false);
 	}
 }
+
+int Player::getHandCardNum() const
+{
+	return m_cards.size();
+}
+
+void Player::setDizhu(bool dizhu)
+{
+	m_is_dizhu = dizhu;
+}
+
+bool Player::isDizhu() const
+{
+	return m_is_dizhu;
+}
+
+void Player::startPlayCard(CardType &last_card)
+{
+	m_last_card = last_card;
+
+	onStartPlayCard();
+}
+
+void Player::playCard(CardType &card_type)
+{
+	// 从手牌移除出的牌
+	auto &out_cards = card_type.getCards();
+	auto it = remove_if(m_cards.begin(), m_cards.end(), [&](const CardData &data) {
+		return (find(out_cards.begin(), out_cards.end(), data) != out_cards.end());
+	});
+	m_cards.erase(it, m_cards.end());
+
+	onPlayCard();
+
+	_game->playerPlayCard(m_index, card_type);
+}

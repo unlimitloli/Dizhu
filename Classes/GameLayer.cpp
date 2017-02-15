@@ -69,6 +69,7 @@ void GameLayer::showDizhuCards()
 		auto card = CardSprite::create(dizhuCards[i]);
 		Panel_Dizhu->addChild(card);
 	}
+	updatePlayerCardNum();
 	_game->startQiangdizhu();
 }
 
@@ -167,6 +168,14 @@ void GameLayer::hideQiangdizhu()
 void GameLayer::startPlayCard()
 {
 	flushHandCard();
+	updatePlayerCardNum();
+
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
+	listener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
+
+	m_panel_self->setSwallowTouches(false);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, m_panel_self);
 }
 
 void GameLayer::flushHandCard()
@@ -184,4 +193,39 @@ void GameLayer::flushHandCard()
 	m_panel_self->setContentSize(Size(cards.size() * CARD_WIDTH / 2, CARD_HEIGHT));
 }
 
+void GameLayer::updatePlayerCardNum()
+{
+	auto Text_Card_Num_1 = dynamic_cast<Text *>(getWidgetByName(m_root, "Text_Card_Num_1"));
+	auto Text_Card_Num_2 = dynamic_cast<Text *>(getWidgetByName(m_root, "Text_Card_Num_2"));
+	Text_Card_Num_1->setString(Value(_game->getPlayer(1)->getHandCardNum()).asString());
+	Text_Card_Num_2->setString(Value(_game->getPlayer(2)->getHandCardNum()).asString());
+}
 
+void GameLayer::showPlayCardButton(bool is_show)
+{
+	auto Panel_Button = getWidgetByName(m_root, "Panel_Button");
+	Panel_Button->setVisible(is_show);
+}
+
+bool GameLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+	return true;
+}
+
+void GameLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
+{
+	auto pos = touch->getLocation();
+	auto node = event->getCurrentTarget();
+	pos = node->convertToNodeSpace(pos);
+	CardSprite *card = nullptr;
+	for (auto hand_card : m_hand_cards)
+	{
+		if (hand_card->getBoundingBox().containsPoint(pos))
+			card = hand_card;
+	}
+
+	if (card != nullptr)
+	{
+		card->runAction(MoveBy::create(0.2f, Vec2(0, 20)));
+	}
+}

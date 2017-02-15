@@ -153,6 +153,9 @@ void GameMaster::startPlayCard()
 		m_players.at(m_dizhu_player)->addCard(card);
 	}
 	m_game_layer->startPlayCard();
+
+	m_cur_play_card_palyer = m_dizhu_player;
+	m_players.at(m_cur_play_card_palyer)->startPlayCard(m_last_card);
 }
 
 void GameMaster::playerSureQiangdizhu(int index, bool sure)
@@ -203,9 +206,19 @@ Player * GameMaster::getControlPlayer()
 	return m_players.at(m_control_player);
 }
 
+Player * GameMaster::getPlayer(int index)
+{
+	index = (index + m_control_player) % 3;
+	return m_players.at(index);
+}
+
 std::vector<CardData> GameMaster::getDizhuCards() const
 {
 	return m_dizhuCards;
+}
+
+void GameMaster::playerPlayCard(int index, CardType & card_type)
+{
 }
 
 void GameMaster::onExit()

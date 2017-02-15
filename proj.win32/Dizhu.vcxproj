@@ -148,6 +148,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\CardData.cpp" />
     <ClCompile Include="..\Classes\CardManager.cpp" />
     <ClCompile Include="..\Classes\CardSprite.cpp" />
+    <ClCompile Include="..\Classes\CardType.cpp" />
     <ClCompile Include="..\Classes\csb_config.cpp" />
     <ClCompile Include="..\Classes\GameLayer.cpp" />
     <ClCompile Include="..\Classes\GameMaster.cpp" />
@@ -166,6 +167,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\CardData.h" />
     <ClInclude Include="..\Classes\CardManager.h" />
     <ClInclude Include="..\Classes\CardSprite.h" />
+    <ClInclude Include="..\Classes\CardType.h" />
     <ClInclude Include="..\Classes\csb_config.h" />
     <ClInclude Include="..\Classes\GameLayer.h" />
     <ClInclude Include="..\Classes\GameMaster.h" />

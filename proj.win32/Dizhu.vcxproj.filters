@@ -105,6 +105,9 @@
     <ClCompile Include="..\Classes\PlayerControl.cpp">
       <Filter>src\游戏场景\操作玩家</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CardType.cpp">
+      <Filter>src\游戏场景\卡牌\牌型</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\PlayerAI.h">
       <Filter>src\游戏场景\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CardType.h">
+      <Filter>src\游戏场景\卡牌\牌型</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

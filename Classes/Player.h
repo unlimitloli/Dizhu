@@ -2,6 +2,7 @@
 #include "CardData.h"
 #include <vector>
 #include "cocos2d.h"
+#include "CardType.h"
 
 class GameLayer;
 
@@ -22,12 +23,25 @@ public:
 	virtual void startQiangdizhu() = 0;			// 开始抢地主
 	virtual void sureQiangdizhu(bool sure);		// 确定是否抢地主
 
+	int getHandCardNum() const;
+
+	void setDizhu(bool dizhu);
+	bool isDizhu() const;
+
+	void startPlayCard(CardType &last_card);
+	void playCard(CardType &card_type);	// 出牌
+
+	virtual void onStartPlayCard() {};
+	virtual void onPlayCard() {};
+
 protected:
 	std::vector<CardData> m_cards;
 	int m_index = 0;
 	bool m_is_ready = false;
+	bool m_is_dizhu = false;
 
 	bool m_is_qiangdizhu = true;
 
 	GameLayer *m_game_layer = nullptr;
+	CardType m_last_card;
 };

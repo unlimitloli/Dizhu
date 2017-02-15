@@ -2,6 +2,7 @@
 #include "cocos2d.h"
 #include "Player.h"
 #include "CardManager.h"
+#include "CardType.h"
 
 #define _game		GameMaster::getInstance()
 
@@ -41,8 +42,11 @@ public:
 	void setPlayerReady(int index);
 
 	Player * getControlPlayer();
+	Player * getPlayer(int index);
 
 	std::vector<CardData> getDizhuCards() const;
+
+	void playerPlayCard(int index, CardType &card_type);
 
 	virtual void onExit() override;
 
@@ -65,6 +69,10 @@ protected:
 	int m_cur_dizhu_player = 0;
 	int m_dizhu_player = 0;				// 地主
 	std::vector<CardData> m_dizhuCards;
+
+	int m_cur_play_card_palyer = 0;		// 当前出牌的玩家
+
+	CardType m_last_card = NoneCardType;
 
 protected:
 	void checkState();			// 检查游戏进行状态
