@@ -54,7 +54,7 @@ bool CardData::isVaild() const
 
 bool CardData::operator== (const CardData &data) const
 {
-	return (m_num == data.m_num);
+	return (m_num == data.m_num) && (m_type == data.m_type);
 }
 
 bool CardData::operator< (const CardData &data) const

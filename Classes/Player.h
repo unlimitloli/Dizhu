@@ -29,7 +29,7 @@ public:
 	bool isDizhu() const;
 
 	void startPlayCard(CardType &last_card);
-	void playCard(CardType &card_type);	// ³öÅÆ
+	bool playCard(CardType &card_type);	// ³öÅÆ
 
 	virtual void onStartPlayCard() {};
 	virtual void onPlayCard() {};

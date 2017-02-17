@@ -80,7 +80,7 @@ void Player::startPlayCard(CardType &last_card)
 	onStartPlayCard();
 }
 
-void Player::playCard(CardType &card_type)
+bool Player::playCard(CardType &card_type)
 {
 	// 从手牌移除出的牌
 	auto &out_cards = card_type.getCards();
@@ -89,7 +89,9 @@ void Player::playCard(CardType &card_type)
 	});
 	m_cards.erase(it, m_cards.end());
 
-	onPlayCard();
-
 	_game->playerPlayCard(m_index, card_type);
+
+	onPlayCard();
+	
+	return true;
 }

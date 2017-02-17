@@ -192,6 +192,11 @@ void GameMaster::createPlayer()
 
 	m_players.at(0)->setControl(m_game_layer);
 
+	for (auto player : m_players)
+	{
+		addChild(player);
+	}
+
 	m_control_player = 0;
 }
 
@@ -206,9 +211,9 @@ Player * GameMaster::getControlPlayer()
 	return m_players.at(m_control_player);
 }
 
-Player * GameMaster::getPlayer(int index)
+Player * GameMaster::getPlayer(int player)
 {
-	index = (index + m_control_player) % 3;
+	int index = (player + m_control_player) % 3;
 	return m_players.at(index);
 }
 
@@ -219,6 +224,11 @@ std::vector<CardData> GameMaster::getDizhuCards() const
 
 void GameMaster::playerPlayCard(int index, CardType & card_type)
 {
+	int player = (3 - m_control_player + index) % 3;
+	m_game_layer->showPlayCard(player, card_type);
+
+	int next = (index + 1) % 3;
+	m_players.at(next)->startPlayCard(card_type);
 }
 
 void GameMaster::onExit()

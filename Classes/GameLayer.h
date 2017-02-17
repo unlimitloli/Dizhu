@@ -4,6 +4,7 @@
 #include "CardData.h"
 #include "CardSprite.h"
 #include "ui\CocosGUI.h"
+#include "CardType.h"
 
 class Player;
 
@@ -39,13 +40,19 @@ public:
 	void onTouchButtonTip(cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType type);		// 提示
 	void onTouchButtonReset(cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType type);		// 重选
 
+	void showPlayCard(int player, CardType &card_type);
+	void removePlayerPlayeCard(int player);
+
 protected:
 	cocos2d::Node * m_root;
 	cocos2d::Vector<CardSprite *> m_hand_cards;
 
 	cocos2d::ui::Layout *m_panel_self;		// 手牌区
 	cocos2d::ui::Layout *m_panel_out;		// 出牌区
+	cocos2d::ui::Layout *m_panel_game;
 	cocos2d::Vector<CardSprite *> m_select_cards;
+
+	cocos2d::Vector<CardSprite *> m_card_others[2];		//其他玩家出的牌
 
 	Player *m_player;
 

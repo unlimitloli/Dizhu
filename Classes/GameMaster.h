@@ -42,7 +42,7 @@ public:
 	void setPlayerReady(int index);
 
 	Player * getControlPlayer();
-	Player * getPlayer(int index);
+	Player * getPlayer(int player);			// 玩家控制角色为0
 
 	std::vector<CardData> getDizhuCards() const;
 

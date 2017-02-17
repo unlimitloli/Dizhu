@@ -29,3 +29,8 @@ void PlayerControl::onStartPlayCard()
 {
 	m_game_layer->showPlayCardButton(true);
 }
+
+void PlayerControl::onPlayCard()
+{
+	m_game_layer->showPlayCardButton(false);
+}

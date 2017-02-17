@@ -28,6 +28,7 @@ bool GameLayer::init()
 
 	m_panel_self = dynamic_cast<Layout *>(getWidgetByName(m_root, "Panel_Self"));
 	m_panel_out = dynamic_cast<Layout *>(getWidgetByName(m_root, "Panel_Out"));
+	m_panel_game = dynamic_cast<Layout *>(getWidgetByName(m_root, "Panel_Game"));
 
 	auto btnExit = dynamic_cast<Button *>(getWidgetByName(m_root, "Button_Exit"));
 	btnExit->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type) {
@@ -254,17 +255,71 @@ void GameLayer::onTouchButtonPlay(cocos2d::Ref * sender, cocos2d::ui::Widget::To
 	{
 		if (m_select_cards.size() == 0)
 			return;
-		for (size_t i = 0; i < m_select_cards.size(); ++i)
+		m_player->playCard(CardType(m_select_cards));
+	}
+}
+
+void GameLayer::showPlayCard(int player, CardType &card_type)
+{
+	removePlayerPlayeCard(player);
+	if (player == 0)		// 控制的玩家出牌
+	{
+		auto select_cards = card_type.getCards();
+		int count = select_cards.size();
+		for (int i = 0; i < count; ++i)
 		{
-			auto sprite = m_select_cards.at(i);
-			sprite->removeFromParentAndCleanup(false);
+			auto sprite = CardSprite::create(select_cards.at(i));
 			sprite->setPosition(i * CARD_WIDTH / 2, 0);
 			m_panel_out->addChild(sprite);
-			m_hand_cards.eraseObject(sprite);
 		}
 		m_panel_out->setContentSize(Size(m_select_cards.size() * CARD_WIDTH / 2, CARD_HEIGHT));
-		m_player->playCard(CardType(m_select_cards));
 		m_select_cards.clear();
 		flushHandCard();
+	}
+	else if (player == 1)
+	{
+		auto Image_PlayerPoint = getWidgetByName(m_root, "Image_PlayerPoint_1");
+		auto pos = Image_PlayerPoint->getPosition();
+		auto other_cards = card_type.getCards();
+		auto count = other_cards.size();
+		for (int i = 0; i < count; ++i)
+		{
+			auto sprite = CardSprite::create(other_cards.at(i));
+			sprite->setPosition(pos.x + i * CARD_WIDTH / 2, pos.y);
+			m_panel_game->addChild(sprite);
+			m_card_others[player - 1].pushBack(sprite);
+		}
+		updatePlayerCardNum();
+	}
+	else
+	{
+		auto Image_PlayerPoint = getWidgetByName(m_root, getNameWithIndex("Image_PlayerPoint_2", player));
+		auto pos = Image_PlayerPoint->getPosition();
+		auto other_cards = card_type.getCards();
+		auto count = other_cards.size();
+		for (int i = 0; i < count; ++i)
+		{
+			auto sprite = CardSprite::create(other_cards.at(i));
+			sprite->setPosition(pos.x - (count - i + 1) * CARD_WIDTH / 2, pos.y);
+			m_panel_game->addChild(sprite);
+			m_card_others[player - 1].pushBack(sprite);
+		}
+		updatePlayerCardNum();
+	}
+}
+
+void GameLayer::removePlayerPlayeCard(int player)
+{
+	if (player == 0)
+	{
+		m_panel_out->removeAllChildrenWithCleanup(true);
+	}
+	else
+	{
+		for (auto sprite : m_card_others[player - 1])
+		{
+			sprite->removeFromParentAndCleanup(true);
+		}
+		m_card_others[player - 1].clear();
 	}
 }
