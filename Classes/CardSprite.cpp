@@ -28,6 +28,12 @@ bool CardSprite::initWithData(const CardData &data)
 		return false;
 
 	setAnchorPoint(Vec2::ZERO);
+	m_data = data;
 
 	return true;
+}
+
+CardData CardSprite::getCardData() const
+{
+	return m_data;
 }

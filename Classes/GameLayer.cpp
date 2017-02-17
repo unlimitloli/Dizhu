@@ -5,10 +5,12 @@
 #include "CardManager.h"
 #include "CardSprite.h"
 #include "SceneManager.h"
+#include <algorithm>
 
 USING_NS_CC;
 using namespace cocos2d::ui;
 using namespace cocostudio;
+using namespace std;
 
 const int CARD_WIDTH = 72;
 const int CARD_HEIGHT = 108;
@@ -25,6 +27,7 @@ bool GameLayer::init()
 	m_root = csbItem->getChildByName("root");
 
 	m_panel_self = dynamic_cast<Layout *>(getWidgetByName(m_root, "Panel_Self"));
+	m_panel_out = dynamic_cast<Layout *>(getWidgetByName(m_root, "Panel_Out"));
 
 	auto btnExit = dynamic_cast<Button *>(getWidgetByName(m_root, "Button_Exit"));
 	btnExit->addTouchEventListener([&](Ref *sender, Widget::TouchEventType type) {
@@ -33,6 +36,9 @@ bool GameLayer::init()
 			_sceneManager->replaceScene(EnumScene::StartScene);
 		}
 	});
+
+	auto btnPlay = dynamic_cast<Button *>(getWidgetByName(m_root, "Button_Play"));
+	btnPlay->addTouchEventListener(CC_CALLBACK_2(GameLayer::onTouchButtonPlay, this));
 
 	return true;
 }
@@ -43,7 +49,7 @@ void GameLayer::setReady()
 	Panel_Game->setVisible(false);
 }
 
-void GameLayer::setStart()
+void GameLayer::setStart(Player *player)
 {
 	auto Panel_Game = getWidgetByName(m_root, "Panel_Game");
 	Panel_Game->setVisible(true);
@@ -57,6 +63,8 @@ void GameLayer::setStart()
 	Panel_JiaoDizhu->setVisible(false);
 	Panel_Buyao->setVisible(false);
 	Panel_Button->setVisible(false);
+
+	m_player = player;
 }
 
 void GameLayer::showDizhuCards()
@@ -226,6 +234,37 @@ void GameLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event)
 
 	if (card != nullptr)
 	{
-		card->runAction(MoveBy::create(0.2f, Vec2(0, 20)));
+		
+		if (m_select_cards.contains(card))
+		{
+			card->runAction(MoveBy::create(0.2f, Vec2(0, -20)));
+			m_select_cards.eraseObject(card);
+		}
+		else
+		{
+			card->runAction(MoveBy::create(0.2f, Vec2(0, 20)));
+			m_select_cards.pushBack(card);
+		}
+	}
+}
+
+void GameLayer::onTouchButtonPlay(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType type)
+{
+	if (Widget::TouchEventType::ENDED == type)
+	{
+		if (m_select_cards.size() == 0)
+			return;
+		for (size_t i = 0; i < m_select_cards.size(); ++i)
+		{
+			auto sprite = m_select_cards.at(i);
+			sprite->removeFromParentAndCleanup(false);
+			sprite->setPosition(i * CARD_WIDTH / 2, 0);
+			m_panel_out->addChild(sprite);
+			m_hand_cards.eraseObject(sprite);
+		}
+		m_panel_out->setContentSize(Size(m_select_cards.size() * CARD_WIDTH / 2, CARD_HEIGHT));
+		m_player->playCard(CardType(m_select_cards));
+		m_select_cards.clear();
+		flushHandCard();
 	}
 }

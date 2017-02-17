@@ -5,6 +5,8 @@
 #include "CardSprite.h"
 #include "ui\CocosGUI.h"
 
+class Player;
+
 class GameLayer : public cocos2d::Layer
 {
 public:
@@ -13,7 +15,7 @@ public:
 
 	void setReady();			// 设置等待玩家状态
 
-	void setStart();
+	void setStart(Player *player);
 	void showDizhuCards();		// 显示地主的牌
 	void showHandCards();		// 显示手牌
 
@@ -32,12 +34,20 @@ public:
 	virtual bool onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) override;
 	virtual void onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event) override;
 
+	void onTouchButtonPlay(cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType type);		// 出牌
+	void onTouchButtonSkip(cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType type);		// 不出
+	void onTouchButtonTip(cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType type);		// 提示
+	void onTouchButtonReset(cocos2d::Ref *sender, cocos2d::ui::Widget::TouchEventType type);		// 重选
+
 protected:
 	cocos2d::Node * m_root;
 	cocos2d::Vector<CardSprite *> m_hand_cards;
 
 	cocos2d::ui::Layout *m_panel_self;		// 手牌区
+	cocos2d::ui::Layout *m_panel_out;		// 出牌区
 	cocos2d::Vector<CardSprite *> m_select_cards;
+
+	Player *m_player;
 
 	bool m_is_new_game = true;
 };

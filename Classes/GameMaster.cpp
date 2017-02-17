@@ -131,7 +131,7 @@ void GameMaster::startReady()
 void GameMaster::startGame()
 {
 	m_game_ready_layer->setVisible(false);
-	m_game_layer->setStart();
+	m_game_layer->setStart(m_players.at(m_control_player));
 
 	CardManager manager;
 	manager.flushCard();
