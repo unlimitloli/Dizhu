@@ -40,17 +40,52 @@ std::vector<CardData> & CardType::getCards()
 
 bool CardType::isNone() const
 {
-	return (m_cards.size() == 0);
+	if (m_type == EnumType::TypeNone)
+		return true;
+	return false;
 }
 
 bool CardType::isVaild() const
 {
-	return true;
+	if (m_type == EnumType::TypeVaild)
+		return true;
+	return false;
+}
+
+int CardType::getCompareNum() const
+{
+	return m_num;
 }
 
 bool CardType::winCard(const CardType &card_type) const
 {
-	return true;
+	if (isVaild())
+		return false;
+
+	if (card_type.isVaild())
+		return true;
+
+	if (card_type.isNone())				// 上家没又出牌，即玩家必须出牌
+	{
+		if (isNone())
+			return false;
+		return true;
+	}
+	else
+	{
+		if (isNone())					// 可以选择不出牌
+			return true;
+		else
+		{
+			if ((m_type == card_type.m_type) && (m_length == card_type.m_length) &&
+				(m_card_count == card_type.m_card_count) && (m_num > card_type.m_num))
+				return true;
+			else
+				return false;
+		}
+	}
+
+	return false;
 }
 
 void CardType::checkCardType()
@@ -60,7 +95,10 @@ void CardType::checkCardType()
 
 	m_card_count = m_cards.size();
 	if (m_card_count == 0)
-		m_type = EnumType::TypeVaild;
+	{
+		m_type = EnumType::TypeNone;
+		return;
+	}
 
 	for (auto & card : m_cards)
 	{
@@ -170,4 +208,9 @@ void CardType::checkCardType()
 		else
 			m_type = EnumType::TypeVaild;
 	}
+}
+
+EnumType CardType::getType() const
+{
+	return m_type;
 }

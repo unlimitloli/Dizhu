@@ -7,6 +7,7 @@ class CardSprite;
 
 enum class EnumType
 {
+	TypeNone,			// 不出牌
 	TypeVaild,			// 无效
 	TypeOne,			// 单牌
 	TypeTwo,			// 对子
@@ -31,14 +32,16 @@ public:
 	bool isVaild() const;			// 无效牌
 
 	bool winCard(const CardType &card_type) const;		// 是否能大过上家
+	int getCompareNum() const;
+	EnumType getType() const;
 
 protected:
 	std::vector<CardData> m_cards;
 
 	EnumType m_type = EnumType::TypeVaild;
-	int m_num;
-	int m_length;
-	int m_card_count;
+	int m_num = 0;
+	int m_length = 0;
+	int m_card_count = 0;
 
 protected:
 	void checkCardType();

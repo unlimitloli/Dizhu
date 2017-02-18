@@ -225,10 +225,26 @@ std::vector<CardData> GameMaster::getDizhuCards() const
 void GameMaster::playerPlayCard(int index, CardType & card_type)
 {
 	int player = (3 - m_control_player + index) % 3;
+	int next_player = (player + 1) % 3;
 	m_game_layer->showPlayCard(player, card_type);
 
 	int next = (index + 1) % 3;
-	m_players.at(next)->startPlayCard(card_type);
+	if (!card_type.isNone() && !card_type.isVaild())
+	{
+		m_last_card = card_type;
+		m_last_playcard_player = index;
+	}
+	else
+	{
+		if (m_last_playcard_player == next)			// Ã¿ÈËÒªÅÆ
+		{
+			m_last_card = NoneCardType;
+			m_last_playcard_player = -1;
+			//m_game_layer->clearPlayerPlayCard();
+		}
+	}
+	m_game_layer->removePlayerPlayeCard(next_player);
+	m_players.at(next)->startPlayCard(m_last_card);
 }
 
 void GameMaster::onExit()

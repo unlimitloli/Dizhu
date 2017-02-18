@@ -76,22 +76,96 @@ bool Player::isDizhu() const
 void Player::startPlayCard(CardType &last_card)
 {
 	m_last_card = last_card;
+	resetCardNum();
 
 	onStartPlayCard();
 }
 
 bool Player::playCard(CardType &card_type)
 {
-	// 从手牌移除出的牌
-	auto &out_cards = card_type.getCards();
-	auto it = remove_if(m_cards.begin(), m_cards.end(), [&](const CardData &data) {
-		return (find(out_cards.begin(), out_cards.end(), data) != out_cards.end());
-	});
-	m_cards.erase(it, m_cards.end());
+	if (card_type.winCard(m_last_card))
+	{
+		// 从手牌移除出的牌
+		auto &out_cards = card_type.getCards();
+		auto it = remove_if(m_cards.begin(), m_cards.end(), [&](const CardData &data) {
+			return (find(out_cards.begin(), out_cards.end(), data) != out_cards.end());
+		});
+		m_cards.erase(it, m_cards.end());
 
-	_game->playerPlayCard(m_index, card_type);
+		_game->playerPlayCard(m_index, card_type);
 
-	onPlayCard();
+		onPlayCard();
+		return true;
+	}
 	
-	return true;
+	return false;
+}
+
+CardType Player::getTip() const
+{
+	vector<CardData> card_datas;
+	switch (m_last_card.getType())
+	{
+	case EnumType::TypeNone:
+		card_datas = findCard(1, 0, 1);
+		break;
+	case EnumType::TypeOne:
+		card_datas = findCard(1, m_last_card.getCompareNum(), 1);
+		break;
+	case EnumType::TypeTwo:
+		card_datas = findCard(2, m_last_card.getCompareNum(), 1);
+		break;
+	default:
+		break;
+	}
+
+	return CardType(card_datas);
+}
+
+void Player::resetCardNum()
+{
+	memset(m_card_num, 0, sizeof(int) * 18);
+	for (auto & card : m_cards)
+	{
+		int n = card.getNum();
+		++m_card_num[n];
+	}
+}
+
+std::vector<CardData> Player::findCard(int type, int min_num, int count) const
+{
+	vector<CardData> card_datas;
+
+	int index = 0;
+	int have_count = 0;
+	for (int i = min_num + 1; i < 18; ++i)
+	{
+		if (m_card_num[i] >= type)
+		{
+			++have_count;
+			if (have_count == 1)
+			{
+				index = i;
+			}
+			if (have_count == count)
+				break;
+		}
+		else
+			have_count = 0;
+	}
+
+	if (have_count == count)		// 有查找的牌
+	{
+		int card_index = 0;
+		for (int i = 0; i < index; ++i)		// 计算寻找的牌在牌组中的下标
+		{
+			card_index += m_card_num[i];
+		}
+		for (int i = 0; i < type * count; ++i)
+		{
+			card_datas.push_back(m_cards.at(m_cards.size() - card_index - i - 1));
+		}
+	}
+
+	return card_datas;
 }

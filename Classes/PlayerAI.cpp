@@ -46,7 +46,6 @@ void PlayerAI::onStartPlayCard()
 void PlayerAI::aiPlayerCard()
 {
 	vector<CardData> card_data;
-	card_data.push_back(m_cards[1]);
-	card_data.push_back(m_cards[2]);
-	playCard(CardType(card_data));
+	CardType out_card = getTip();
+	playCard(CardType(out_card));
 }

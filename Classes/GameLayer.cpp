@@ -39,7 +39,13 @@ bool GameLayer::init()
 	});
 
 	auto btnPlay = dynamic_cast<Button *>(getWidgetByName(m_root, "Button_Play"));
+	auto btnSkip = dynamic_cast<Button *>(getWidgetByName(m_root, "Button_Skip"));
+	auto btnTip = dynamic_cast<Button *>(getWidgetByName(m_root, "Button_Tip"));
+	auto btnReset = dynamic_cast<Button *>(getWidgetByName(m_root, "Button_Reset"));
 	btnPlay->addTouchEventListener(CC_CALLBACK_2(GameLayer::onTouchButtonPlay, this));
+	btnSkip->addTouchEventListener(CC_CALLBACK_2(GameLayer::onTouchButtonSkip, this));
+	btnTip->addTouchEventListener(CC_CALLBACK_2(GameLayer::onTouchButtonTip, this));
+	btnReset->addTouchEventListener(CC_CALLBACK_2(GameLayer::onTouchButtonReset, this));
 
 	return true;
 }
@@ -179,6 +185,10 @@ void GameLayer::startPlayCard()
 	flushHandCard();
 	updatePlayerCardNum();
 
+	auto Panel_Buyao = getWidgetByName(m_root, "Panel_Buyao");
+	Panel_Buyao->setVisible(true);
+	clearPlayerPlayCard();
+
 	auto listener = EventListenerTouchOneByOne::create();
 	listener->onTouchBegan = CC_CALLBACK_2(GameLayer::onTouchBegan, this);
 	listener->onTouchEnded = CC_CALLBACK_2(GameLayer::onTouchEnded, this);
@@ -259,9 +269,41 @@ void GameLayer::onTouchButtonPlay(cocos2d::Ref * sender, cocos2d::ui::Widget::To
 	}
 }
 
+void GameLayer::onTouchButtonSkip(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType type)
+{
+	if (Widget::TouchEventType::ENDED == type)
+	{
+		m_player->playCard(NoneCardType);
+	}
+}
+
+void GameLayer::onTouchButtonTip(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType type)
+{
+	if (Widget::TouchEventType::ENDED == type)
+	{
+
+	}
+}
+
+void GameLayer::onTouchButtonReset(cocos2d::Ref * sender, cocos2d::ui::Widget::TouchEventType type)
+{
+	if (Widget::TouchEventType::ENDED == type)
+	{
+
+	}
+}
+
 void GameLayer::showPlayCard(int player, CardType &card_type)
 {
 	removePlayerPlayeCard(player);
+
+	if (card_type.isNone())
+	{
+		auto Image_Buyao = getWidgetByName(m_root, getNameWithIndex("Image_Buyao_%d", player));
+		Image_Buyao->setVisible(true);
+		return;
+	}
+
 	if (player == 0)		// 控制的玩家出牌
 	{
 		auto select_cards = card_type.getCards();
@@ -278,7 +320,7 @@ void GameLayer::showPlayCard(int player, CardType &card_type)
 	}
 	else if (player == 1)
 	{
-		auto Image_PlayerPoint = getWidgetByName(m_root, "Image_PlayerPoint_1");
+		auto Image_PlayerPoint = getWidgetByName(m_root, getNameWithIndex("Image_PlayerPoint_%d", player));
 		auto pos = Image_PlayerPoint->getPosition();
 		auto other_cards = card_type.getCards();
 		auto count = other_cards.size();
@@ -293,7 +335,7 @@ void GameLayer::showPlayCard(int player, CardType &card_type)
 	}
 	else
 	{
-		auto Image_PlayerPoint = getWidgetByName(m_root, getNameWithIndex("Image_PlayerPoint_2", player));
+		auto Image_PlayerPoint = getWidgetByName(m_root, getNameWithIndex("Image_PlayerPoint_%d", player));
 		auto pos = Image_PlayerPoint->getPosition();
 		auto other_cards = card_type.getCards();
 		auto count = other_cards.size();
@@ -321,5 +363,16 @@ void GameLayer::removePlayerPlayeCard(int player)
 			sprite->removeFromParentAndCleanup(true);
 		}
 		m_card_others[player - 1].clear();
+	}
+
+	auto Image_Buyao = getWidgetByName(m_root, getNameWithIndex("Image_Buyao_%d", player));
+	Image_Buyao->setVisible(false);
+}
+
+void GameLayer::clearPlayerPlayCard()
+{
+	for (int i = 0; i < 3; ++i)
+	{
+		removePlayerPlayeCard(i);
 	}
 }

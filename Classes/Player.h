@@ -34,8 +34,11 @@ public:
 	virtual void onStartPlayCard() {};
 	virtual void onPlayCard() {};
 
+	CardType getTip() const;
+
 protected:
 	std::vector<CardData> m_cards;
+	int m_card_num[18];
 	int m_index = 0;
 	bool m_is_ready = false;
 	bool m_is_dizhu = false;
@@ -44,4 +47,8 @@ protected:
 
 	GameLayer *m_game_layer = nullptr;
 	CardType m_last_card;
+
+protected:
+	void resetCardNum();
+	std::vector<CardData> findCard(int type, int min_num, int count = 1) const;
 };

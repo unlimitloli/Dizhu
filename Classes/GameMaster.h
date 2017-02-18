@@ -73,6 +73,7 @@ protected:
 	int m_cur_play_card_palyer = 0;		// 当前出牌的玩家
 
 	CardType m_last_card = NoneCardType;
+	int m_last_playcard_player = -1;			// 上一个出牌的玩家
 
 protected:
 	void checkState();			// 检查游戏进行状态

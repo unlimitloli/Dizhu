@@ -42,6 +42,7 @@ public:
 
 	void showPlayCard(int player, CardType &card_type);
 	void removePlayerPlayeCard(int player);
+	void clearPlayerPlayCard();
 
 protected:
 	cocos2d::Node * m_root;
